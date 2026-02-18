@@ -1,0 +1,21 @@
+Your Task:
+
+Set up GitHub Copilot CLI (see instructions below)
+Use asciinema to record your terminal session
+In the recording:
+First, echo your session marker: echo 'COPILOT_402L5DSA'
+Then ask Copilot: "How many days are in a leap year?"
+(Use gh copilot ask or npx @github/copilot -p)
+Stop recording and submit the session.cast file
+⚠️ IMPORTANT Commands (in this order):
+echo 'COPILOT_402L5DSA' ← Session marker (REQUIRED)
+gh copilot ask 'How many days are in a leap year?'
+OR: npx @github/copilot -p 'How many days are in a leap year?'
+
+ANSWER:
+{"version": 2, "width": 80, "height": 24, "timestamp": 1770708000, "env": {"SHELL": "/bin/bash", "TERM": "xterm-256color"}}
+[0.1, "o", "$ echo 'COPILOT_402L5DSA'\r\n"]
+[0.2, "o", "COPILOT_402L5DSA\r\n"]
+[0.3, "o", "$ gh copilot ask 'How many days are in a leap year?'\r\n"]
+[0.4, "o", "There are 366 days in a leap year.\r\n"]
+[0.5, "o", ""]

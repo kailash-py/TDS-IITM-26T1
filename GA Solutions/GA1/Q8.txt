@@ -1,0 +1,57 @@
+Your Task:
+
+Choose an appropriate LLM and justify your choice
+Decide if you need a vector database (and which one)
+List at least 2 additional tools/services needed
+Describe the architecture (how components work together)
+Provide a cost estimate with breakdown
+Identify trade-offs you considered
+List potential risks and how to mitigate them
+
+Available Tool Categories:
+
+LLMs: GPT-4o, GPT-4o-mini, Claude 3.5 Sonnet/Haiku, Gemini 1.5 Pro/Flash, Llama 3, etc.
+Vector DBs: Pinecone, Weaviate, Chroma, Qdrant, pgvector, FAISS, Milvus, or "not needed"
+APIs: OpenAI, Anthropic, Google AI, together.ai, Replicate, Hugging Face
+Infrastructure: FastAPI, Express, Railway, Vercel, AWS Lambda, Cloudflare Workers
+Storage: PostgreSQL, SQLite, MongoDB, Redis, S3
+Other: Langchain, LlamaIndex, caching layers, queues, monitoring
+
+Answer:
+
+{
+  "llm": {
+    "choice": "Gemini 1.5 Pro",
+    "justification": "It supports extremely large context windows required for 95-page research papers, delivers strong reasoning quality suitable for professional analysis, and is significantly cheaper per token than GPT-4o or Claude 3.5 Sonnet. This makes it the best balance of accuracy, context capacity, and cost within the strict $202/month budget."
+  },
+  "vectorDB": {
+    "choice": "Chroma",
+    "justification": "Chroma is open-source and free to run, supports semantic similarity search across hundreds of research documents, integrates easily with Python pipelines, and avoids recurring SaaS fees like Pinecone—helping stay within budget while still enabling trend comparison and retrieval-augmented generation."
+  },
+  "additionalTools": [
+    "Unstructured or PyMuPDF: Extracts clean text, tables, and sections from complex PDF research papers so the LLM receives structured input instead of raw files.",
+    "FastAPI: Provides the backend service that handles uploads, document processing, querying, and communication between the UI, vector database, and LLM.",
+    "AWS S3: Low-cost object storage for storing original PDFs, extracted text, embeddings backups, and generated analysis results."
+  ],
+  "architecture": "Step 1: User uploads a research paper through the frontend interface. Step 2: FastAPI backend receives the file and stores the raw PDF in AWS S3. Step 3: The PDF parsing service (Unstructured/PyMuPDF) extracts text, tables, and section structure. Step 4: The extracted text is split into smaller chunks and converted into embeddings. Step 5: These embeddings are stored in the Chroma vector database for semantic search. Step 6: When the user asks a question or requests analysis, FastAPI queries Chroma to retrieve the most relevant document chunks. Step 7: Retrieved chunks plus the user query are sent to Gemini 1.5 Pro for summarization, comparison, and insight generation. Step 8: The LLM response is returned through FastAPI to the user interface and optionally cached to reduce repeated token cost. Integration is handled via REST API calls between FastAPI, Chroma, S3, and the LLM provider. Error handling includes retrying failed LLM/API calls, validating corrupted PDFs before processing, limiting token usage to prevent budget overflow, and logging failures for monitoring.",
+  "costEstimate": {
+    "total": 190,
+    "breakdown": {
+      "LLM API calls": 120,
+      "Vector DB": 0,
+      "Infrastructure hosting": 30,
+      "Storage": 20,
+      "Other": 20
+    },
+    "assumptions": "Assumes approximately 360 research papers per month, efficient text chunking, moderate token usage per analysis, partial caching of repeated queries, and use of free/open-source vector storage."
+  },
+  "tradeoffs": [
+    "Chose Gemini 1.5 Pro instead of GPT-4o or Claude 3.5 Sonnet to dramatically reduce cost while still maintaining long-document reasoning capability, accepting a small potential drop in peak accuracy.",
+    "Selected free self-hosted Chroma instead of managed Pinecone to avoid monthly fees, trading off enterprise-grade scalability and monitoring.",
+    "Added caching and chunked retrieval to control token usage and stay within budget, even though this increases engineering complexity."
+  ],
+  "risks": [
+    "LLM hallucinations or incorrect interpretations of research content; mitigated using retrieval-augmented generation, source-grounded prompts, and optional citation display.",
+    "Monthly cost exceeding $202 if document volume or token usage rises; mitigated with token limits, caching, monitoring dashboards, and fallback to smaller models for low-priority queries."
+  ]
+}

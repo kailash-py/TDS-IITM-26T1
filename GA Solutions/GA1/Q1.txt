@@ -1,0 +1,17 @@
+{
+  "problems": [
+    "Problem 1: The prompt is too vague and does not clearly define what \"product\" and \"rating\" mean, leading to AI misunderstanding the task.",
+    "Problem 2: The output format is not explicitly specified beyond saying \"Return as JSON,\" which causes inconsistent JSON structures.",
+    "Problem 3: There is no guidance on how to infer or handle missing information (e.g., when the product name or rating is not explicitly mentioned).",
+    "Problem 4: No examples are provided, so the AI has to guess the desired behavior and structure.",
+    "Problem 5: Edge cases such as neutral feedback, mixed sentiment, or non-review text are not addressed."
+  ],
+  "improvedPrompt": "You are an AI assistant that extracts structured product review information from customer feedback.\n\nTask:\nFrom the given customer feedback text, extract:\n1. product: The name or type of product being reviewed. If the product name is not explicitly stated, infer a generic product category (e.g., \"laptop\", \"phone\"). If it cannot be inferred, return null.\n2. rating: An integer rating from 1 to 5 inferred from the sentiment of the text, where:\n   - 1 = very negative\n   - 2 = negative\n   - 3 = neutral/mixed\n   - 4 = positive\n   - 5 = very positive\n   If sentiment is unclear, return null.\n\nOutput Requirements:\n- Return ONLY valid JSON.\n- Use exactly the following JSON schema:\n{\n  \"product\": string | null,\n  \"rating\": number | null\n}\n- Do not include any additional text outside the JSON.\n\nEdge Case Rules:\n- If multiple products are mentioned, choose the primary product being reviewed.\n- If the text is not a product review, set both fields to null.\n- Do not invent specific brand names that are not present in the text.\n\nExamples:\nInput:\n\"I love this phone. The camera is amazing and battery life is great!\"\nOutput:\n{\n  \"product\": \"phone\",\n  \"rating\": 5\n}\n\nInput:\n\"The delivery was late and support was unhelpful.\"\nOutput:\n{\n  \"product\": null,\n  \"rating\": null\n}\n\nNow extract the information from this text:\n\"[text]\"",
+  "improvements": [
+    "Clearly defined what \"product\" and \"rating\" mean, reducing ambiguity and task misunderstanding.",
+    "Specified an exact JSON schema and restricted output to JSON only, ensuring consistent output format.",
+    "Added explicit sentiment-to-rating rules so ratings are inferred consistently.",
+    "Included clear instructions for handling missing data, multiple products, and non-review inputs.",
+    "Provided concrete input–output examples to guide the model toward the desired behavior."
+  ]
+}

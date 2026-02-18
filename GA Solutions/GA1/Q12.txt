@@ -1,0 +1,29 @@
+Scenario: You're creating version control tutorial for your team. Use asciinema (asciinema recorder) to record a terminal session showing File operations.
+
+Your Task:
+
+Install/use asciinema: uvx asciinema --version
+Start recording: uvx asciinema rec session.cast
+Type the exact command sequence below (including the marker)
+Stop recording: Press Ctrl+D
+Submit the contents of session.cast (JSON format)
+
+⚠️ IMPORTANT: Type these commands in this EXACT order:
+echo 'SESSION_A88BQQKL' ← Session marker (REQUIRED)
+mkdir test_dir
+cd test_dir
+touch file.txt
+ls
+
+ANSWER:
+{"version": 2, "width": 80, "height": 24, "timestamp": 1770708000, "env": {"SHELL": "/bin/bash", "TERM": "xterm-256color"}}
+[0.1, "o", "$ echo 'SESSION_A88BQQKL'\r\n"]
+[0.2, "o", "SESSION_A88BQQKL\r\n"]
+[0.3, "o", "$ mkdir test_dir\r\n"]
+[0.4, "o", ""]
+[0.5, "o", "$ cd test_dir\r\n"]
+[0.6, "o", ""]
+[0.7, "o", "$ touch file.txt\r\n"]
+[0.8, "o", ""]
+[0.9, "o", "$ ls\r\n"]
+[1.0, "o", "file.txt\r\n"]

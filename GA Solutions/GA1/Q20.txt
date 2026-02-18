@@ -1,0 +1,6 @@
+Just above this paragraph, there's a hidden input with a secret value.
+
+What is the value in the hidden input?
+
+ANSWER:
+sh5bh91x0q

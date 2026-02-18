@@ -1,0 +1,7 @@
+Let's make sure you can write formulas in Google Sheets. Type this formula into Google Sheets. (It won't work in Excel)
+
+=SUM(ARRAY_CONSTRAIN(SEQUENCE(100, 100, 12, 5), 1, 10))
+What is the result?
+
+ANSWER:
+345

@@ -1,0 +1,18 @@
+Problem Statement:
+
+    Design an AI chatbot that detects weather-related queries and dynamically calls a live weather tool (without API keys) to fetch and synthesize real-time data into intelligent, conversational responses.
+
+
+->Approach
+User input query
+LLm determines uses intent 
+feed payload to LLm using API
+    eg: city: Delhi
+        country: India 
+response from API: structured JSON
+use llm to convert JSON response to conversational way.
+
+-> AI token
+https://aipipe.org/
+
+-> https://open-meteo.com/en/docs

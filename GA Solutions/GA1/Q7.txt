@@ -1,0 +1,23 @@
+Your Task:
+
+Identify all bugs in the code (there are multiple)
+Write a corrected version that passes all test cases
+Describe your testing strategy to verify the fix
+
+Test Cases to Pass:
+
+[[[1,2],[3,4]]] → [1,2,3,4]
+[[[1,[2,3]],4]] → [1,2,3,4]
+[[1,2,3]] → [1,2,3]
+[[[[[5]]]]] → [5]
+
+Answer:
+{
+  "bugs": [
+    "Bug 1: The code uses arr.flat() without specifying depth, which only flattens one level. Deeply nested arrays remain nested.",
+    "Bug 2: It assumes all environments support Array.prototype.flat, which may not be true in older runtimes.",
+    "Bug 3: Edge cases like empty arrays, arrays with non-array elements, or deeply nested arrays (e.g., [[[[[5]]]]]) are not handled correctly."
+  ],
+  "fixedCode": "function flatten(arr) {\n  return arr.reduce((acc, val) => acc.concat(Array.isArray(val) ? flatten(val) : val), []);\n}",
+  "testStrategy": "I would test this by writing unit tests for all provided cases: [[[1,2],[3,4]]] → [1,2,3,4], [[[1,[2,3]],4]] → [1,2,3,4], [[1,2,3]] → [1,2,3], and [[[[[5]]]]] → [5]. I would also add edge cases: empty arrays (should return []), arrays with mixed types (numbers, strings, null), and very deeply nested arrays to ensure recursion works. Additionally, I would test performance with large arrays to confirm efficiency and verify that non-array elements are preserved correctly."
+}

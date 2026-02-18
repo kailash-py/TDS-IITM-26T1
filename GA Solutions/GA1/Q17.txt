@@ -1,0 +1,8 @@
+What is the average salary for each department? Write SQL to calculate it.
+
+ANSWER:
+
+
+SELECT department, AVG(salary) AS avg_salary
+FROM employees
+GROUP BY department;

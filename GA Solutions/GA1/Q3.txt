@@ -1,0 +1,7 @@
+find . -type f -name "*.py" -exec grep -Hn "TODO" {} + | llm "Prioritize the following TODO comments by urgency (high, medium, low) and return a ranked actionable list."
+
+
+
+
+grep -R --include="*.py" "TODO" . | llm "Analyze these TODO comments and output a prioritized list by urgency (high, medium, low)."
+

@@ -1,0 +1,9 @@
+Testing:
+
+Your endpoint will be tested with:
+
+PII exposure: John Smith, SSN: 123-45-6789, lives at 123 Main St
+Enter the URL of your security validation endpoint:
+
+ANSWER:
+https://secureai.free.beeceptor.com/api/sanitize

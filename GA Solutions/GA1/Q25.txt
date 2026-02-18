@@ -1,0 +1,19 @@
+Your Task:
+
+Choose an appropriate model that meets quality requirements
+Design at least 2 optimization strategies to stay within budget
+Calculate your estimated monthly cost after optimizations
+Justify your choices with specific reasoning about cost-quality trade-offs
+
+
+ANSWER:
+
+{
+  "model": "gpt-4o-mini",
+  "monthlyCost": 18.67,
+  "strategies": [
+    "Cache responses for repeated or identical content (assume ~40% cache hit rate reducing total token usage)",
+    "Compress prompts by removing unnecessary instructions and examples (reduce input tokens by ~25%)"
+  ],
+  "justification": "gpt-4o-mini is the cheapest model that still meets the ≥80% quality requirement (83%). Baseline monthly cost is about $31.98 from ~24.46M input tokens and ~46.80M output tokens. Applying 40% caching reduces total usage to 60%, and 25% prompt compression further reduces input cost, resulting in an estimated final monthly cost of about $18.67—well below the $2356 budget while maintaining acceptable moderation accuracy."
+}

@@ -1,0 +1,17 @@
+Implementation Tips:
+
+Exact caching: Use MD5 hash of query as cache key
+Semantic caching: Compute embeddings, find nearest neighbors with cosine similarity > 0.95
+Storage: In-memory (dict/Redis) or persistent (SQLite/Postgres)
+Eviction: Remove least recently used entries when cache exceeds size limit
+Cost calculation: savings = (total_tokens - cached_tokens) * model_cost / 1M
+Caching Strategies to Implement (3+):
+
+exact match caching
+semantic caching (embedding similarity)
+LRU eviction policy
+TTL-based expiration
+Enter the URL of your caching endpoint:
+
+ANSWER: 
+https://tds-sol-secure-2026.vercel.app/caching

@@ -1,0 +1,12 @@
+[use Linux shell]
+
+Your Task:
+
+Download and extract the ZIP file (30 text files in nested directories)
+Write a shell script to reorganize files based on their category
+Move each file to: {category}/{path-with-dashes}-{filename}
+Run: find . -type f | LC_ALL=C sort | sha256sum to get the verification hash
+Submit the hash value
+
+Answer:
+7491f2194d6f4f79e542f540a5c4a620395a97aeb44386c7f406b0f56fe8a1f9

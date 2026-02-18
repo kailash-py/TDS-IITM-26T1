@@ -1,0 +1,10 @@
+Architecture Suggestions:
+
+Use FastAPI, Express, Flask, or any web framework
+Use SQLite, PostgreSQL, JSON file, or any storage
+Deploy locally (http://localhost:XXXX) or publicly (ngrok, Vercel, Railway, etc.)
+Keep it simple - focus on integration, not production-grade infrastructure
+Enter your pipeline API endpoint URL (e.g., http://localhost:8000/pipeline or https://yourapp.railway.app/pipeline):
+
+ANSWER:
+https://tds-sol-secure-2026.vercel.app/pipeline

@@ -1,0 +1,102 @@
+STREAMING LLM API - ISSUES RESOLVED
+====================================
+
+ISSUE 1: WSL CURL ERROR
+-----------------------
+Error: "Failed to connect to localhost port 8080 after 0 ms: Couldn't connect to server"
+
+Solution:
+- In WSL, localhost doesn't map to Windows localhost
+- Use Windows machine IP or:
+  1. Enable WSL networking bridge
+  2. Or access from Windows directly
+  3. Server is running on 0.0.0.0:8080 (all interfaces)
+
+Access from Windows:
+  curl -X POST http://localhost:8080/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -d '{"prompt": "Explain streaming APIs", "stream": true}'
+
+Access from WSL (use Windows IP):
+  curl -X POST http://172.17.112.1:8080/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -d '{"prompt": "Explain streaming APIs", "stream": true}'
+
+
+ISSUE 2: CORS ERROR IN BROWSER
+-------------------------------
+Error: "Access to fetch at 'http://localhost:8080/v1/chat/completions' from origin 
+'https://exam.sanand.workers.dev' has been blocked by CORS policy"
+
+Solution: Added CORS headers to Flask app
+- Installed: pip install flask-cors
+- Updated src/simple_app.py with CORS support
+- Server now accepts requests from any origin
+
+CORS Headers Added:
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET, POST, OPTIONS
+  Access-Control-Allow-Headers: Content-Type
+
+
+SERVER STATUS
+=============
+✅ Server: Running on http://0.0.0.0:8080
+✅ CORS: Enabled for all origins
+✅ Protocol: HTTP/1.1 with SSE streaming
+✅ Endpoint: /v1/chat/completions (POST)
+
+CURRENT SERVER COMMAND:
+python -c "from waitress import serve; from src.simple_app import app; serve(app, host='0.0.0.0', port=8080)"
+
+
+QUICK FIX SUMMARY
+=================
+
+1. WSL Users: Use your Windows IP instead of localhost
+   Example: http://192.168.x.x:8080/v1/chat/completions
+
+2. Browser Users: CORS is now enabled
+   - Cross-origin requests now work
+   - Origin 'https://exam.sanand.workers.dev' is now allowed
+
+3. Server is accessible from:
+   ✅ Windows: http://localhost:8080
+   ✅ WSL: http://<windows-ip>:8080
+   ✅ Browser: http://localhost:8080 (CORS enabled)
+   ✅ External: http://<machine-ip>:8080
+
+
+TEST THE ENDPOINT
+=================
+
+Using Python:
+  python -c "
+  import urllib.request, json
+  url = 'http://localhost:8080/v1/chat/completions'
+  data = json.dumps({'prompt': 'Test', 'stream': True}).encode()
+  req = urllib.request.Request(url, data=data, headers={'Content-Type': 'application/json'}, method='POST')
+  resp = urllib.request.urlopen(req)
+  print('Status:', resp.status)
+  for line in resp: print(line.decode().strip())
+  "
+
+Using curl:
+  curl -X POST http://localhost:8080/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -d '{"prompt": "Explain streaming APIs", "stream": true}'
+
+Using JavaScript (fetch):
+  fetch('http://localhost:8080/v1/chat/completions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prompt: 'Test', stream: true })
+  })
+  .then(r => r.body.getReader())
+  .then(reader => {
+    reader.read().then(function process({done, value}) {
+      if (done) return;
+      console.log(new TextDecoder().decode(value));
+      return reader.read().then(process);
+    });
+  });

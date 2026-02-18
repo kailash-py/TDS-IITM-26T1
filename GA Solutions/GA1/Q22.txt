@@ -1,0 +1,6 @@
+Question: What is 2 + 2?
+
+This is a straightforward question. Just answer what is asked.
+
+Answer:
+TRUNCATE

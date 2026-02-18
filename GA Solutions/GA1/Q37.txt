@@ -1,0 +1,8 @@
+Your Task
+Download  . It contains an array of 1000 measurements from the latest production run.
+
+What is the sample variance of these measurements?
+
+
+ANSWER
+133.57

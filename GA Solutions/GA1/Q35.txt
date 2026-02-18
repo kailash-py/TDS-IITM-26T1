@@ -1,0 +1,41 @@
+Note: This uses a dummy httpx library, not the real one. You can only use:
+
+response = httpx.get(url, **kwargs)
+response = httpx.post(url, json=None, **kwargs)
+response.raise_for_status()
+response.json()
+
+ANSWER:
+
+
+import httpx
+
+def main():
+    url = "https://api.openai.com/v1/chat/completions"
+    headers = {
+        "Authorization": "Bearer dummy_api_key",  # dummy key for test harness
+        "Content-Type": "application/json"
+    }
+
+    payload = {
+        "model": "gpt-4o-mini",
+        "messages": [
+            {
+                "role": "system",
+                "content": "Analyze the sentiment of the following text. "
+                           "Classify strictly as GOOD, BAD, or NEUTRAL."
+            },
+            {
+                "role": "user",
+                "content": "D3S u x3HZdZ og  t P4tk IC  bcInWw4SMB8 Pg2 zh xkc"
+            }
+        ]
+    }
+
+    response = httpx.post(url, headers=headers, json=payload)
+    response.raise_for_status()
+    data = response.json()
+    print(data)
+
+if __name__ == "__main__":
+    main()

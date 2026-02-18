@@ -1,0 +1,9 @@
+Your Task:
+
+Download the ZIP file containing a Python project
+Extract and examine the code (main.py and utils.py)
+Run python main.py (or uv run main.py) to see the buggy output
+Use an AI coding agent (GitHub Copilot, Cursor, Aider, or Claude) to help identify and fix the bug in utils.py
+Run the fixed code and submit the final OUTPUT line
+
+Ans: 16,3757,234.81

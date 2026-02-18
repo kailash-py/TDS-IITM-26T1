@@ -1,0 +1,7 @@
+Answers:
+What does this code print? print("Yes")
+Reply with "Yes" or "No". Is Linux an OS?
+Fill in the blank: ___ or No?
+Say "Yes" or "No". Does AI stands for Artificial Intelligence?
+Is 5 greater than 1? Reply with just one word: Yes or No.
+Reply with "Yes" or "No". Is Japan a country?

@@ -1,0 +1,9 @@
+Case Study: eShopCo Promotional Audit
+eShopCo wants to verify that all featured sale products are correctly tagged in the front-end. Inspect the hidden product list below—each <li> represents a product with its promotional classes and a data-discount (percentage).
+
+Using a single CSS selector that targets elements with both featured and sale classes, calculate the sum of their data-discount values.
+
+Sum of discounts on .featured.sale items:
+
+ANSWER:
+268

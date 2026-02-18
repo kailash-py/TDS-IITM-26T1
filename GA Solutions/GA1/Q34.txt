@@ -1,0 +1,90 @@
+Scenario: You're building a chat export tool. Users post content with Unicode formatting (𝗯𝗼𝗹𝗱, 𝘪𝘵𝘢𝘭𝘪𝘤, 𝚌𝚘𝚍𝚎), but your system needs standard Markdown. Write a converter function.
+
+Your Task:
+
+Write a JavaScript function convertToMarkdown(text) that converts Unicode-styled text to Markdown:
+
+Bold (𝗔𝗕𝗖) → **ABC**
+Italic (𝘈𝘉𝘊) → *ABC*
+Code (𝙰𝙱𝙲) → `ABC` or code fences for multi-line
+Bullets (• Item) → - Item
+📝 Example Conversions
+💡 Implementation Hints
+🧪 Test Cases
+Paste your convertToMarkdown function here
+
+ANSWER:
+
+
+function convertToMarkdown(text) {
+  // Convert styled Unicode character to plain ASCII equivalent
+  function toPlain(char) {
+    const cp = char.codePointAt(0);
+
+    // Sans-serif Bold (𝗔–𝗭, 𝗮–𝘇, 𝟬–𝟿)
+    if (cp >= 0x1D5A0 && cp <= 0x1D5B9) return String.fromCharCode(cp - 0x1D5A0 + 65); // A-Z
+    if (cp >= 0x1D5BA && cp <= 0x1D5D3) return String.fromCharCode(cp - 0x1D5BA + 97); // a-z
+    if (cp >= 0x1D7EC && cp <= 0x1D7F5) return String.fromCharCode(cp - 0x1D7EC + 48); // 0-9
+
+    // Mathematical Bold (𝐀–𝐙, 𝐚–𝐳, 𝟎–𝟗)
+    if (cp >= 0x1D400 && cp <= 0x1D419) return String.fromCharCode(cp - 0x1D400 + 65);
+    if (cp >= 0x1D41A && cp <= 0x1D433) return String.fromCharCode(cp - 0x1D41A + 97);
+    if (cp >= 0x1D7CE && cp <= 0x1D7D7) return String.fromCharCode(cp - 0x1D7CE + 48);
+
+    // Mathematical Italic (𝘈–𝘡, 𝘢–𝘻)
+    if (cp >= 0x1D434 && cp <= 0x1D44D) return String.fromCharCode(cp - 0x1D434 + 65);
+    if (cp >= 0x1D44E && cp <= 0x1D466) return String.fromCharCode(cp - 0x1D44E + 97);
+    if (cp === 0x1D467) return 'z';
+
+    // Monospace (𝙰–𝙶, 𝙰–𝙶, 𝟶–𝟿)
+    if (cp >= 0x1D670 && cp <= 0x1D689) return String.fromCharCode(cp - 0x1D670 + 65);
+    if (cp >= 0x1D68A && cp <= 0x1D6A3) return String.fromCharCode(cp - 0x1D68A + 97);
+    if (cp >= 0x1D7F6 && cp <= 0x1D7FF) return String.fromCharCode(cp - 0x1D7F6 + 48);
+
+    return char;
+  }
+
+  let result = text;
+
+  // 1. Replace bullets (line-start based)
+  result = result.replace(/^\s*[•◦▪▸‣∙·\-\*\+]\s*/gm, '- ');
+
+  // Define char classes
+  const monoChar = '[\\u{1D670}-\\u{1D6A3}\\u{1D7F6}-\\u{1D7FF}]';
+  const boldChar = '[\\u{1D5A0}-\\u{1D5D3}\\u{1D7EC}-\\u{1D7F5}\\u{1D400}-\\u{1D433}\\u{1D7CE}-\\u{1D7D7}]';
+  const italicChar = '[\\u{1D434}-\\u{1D467}]';
+
+  // 2. Monospace spans (including whitespace between mono chars)
+  const monoRegex = new RegExp(`(${monoChar}+(\\s*${monoChar}+)*)`, 'gu');
+  result = result.replace(monoRegex, (match) => {
+    const plain = [...match].map(toPlain).join('');
+    const lines = plain.split(/\r?\n/);
+    const nonEmptyLines = lines.filter(l => l.trim() !== '');
+
+    // If 3+ non-empty lines, treat as code block
+    if (nonEmptyLines.length >= 3) {
+      return '```\n' + plain.trim() + '\n```';
+    } else {
+      return '`' + plain.trim() + '`';
+    }
+  });
+
+  // 3. Bold spans (including whitespace between bold chars)
+  const boldRegex = new RegExp(`(${boldChar}+(\\s*${boldChar}+)*)`, 'gu');
+  result = result.replace(boldRegex, (match) => {
+    const plain = [...match].map(toPlain).join('');
+    return '**' + plain + '**';
+  });
+
+  // 4. Italic spans (including whitespace between italic chars)
+  const italicRegex = new RegExp(`(${italicChar}+(\\s*${italicChar}+)*)`, 'gu');
+  result = result.replace(italicRegex, (match) => {
+    const plain = [...match].map(toPlain).join('');
+    return '*' + plain + '*';
+  });
+
+  // Final cleanup: normalize multiple newlines
+  result = result.replace(/\n\s*\n+/g, '\n\n').trim();
+
+  return result;
+}

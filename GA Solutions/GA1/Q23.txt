@@ -1,0 +1,7 @@
+Let's make sure you know how to use GitHub. Create a GitHub account if you don't have one. Create a new public repository. Commit a single JSON file called email.json with the value {"email": "23f2005552@ds.study.iitm.ac.in"} and push it.
+
+Enter the raw Github URL of email.json so we can verify it. (It will begin with https://raw.githubusercontent.com/[GITHUB ID]/[REPO NAME]/....)
+
+ANSWER:
+
+https://raw.githubusercontent.com/kailash-py/tds-entrance/refs/heads/main/email.json

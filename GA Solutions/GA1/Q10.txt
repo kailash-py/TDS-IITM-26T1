@@ -1,0 +1,8 @@
+[use Linux shell]
+Download  and unzip it into a new folder, then replace all "IITM" (in upper, lower, or mixed case) with "IIT Madras" in all files. Leave everything as-is - don't change the line endings.
+
+What does running cat * | sha256sum in that folder show in bash?
+
+Answer:
+
+92e3d9da19642a1143ec318a6c51d0243da5cb64be61c81df27944795b277a96 *-
